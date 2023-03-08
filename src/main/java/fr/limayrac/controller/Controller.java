@@ -24,6 +24,11 @@ public class Controller {
 		return "index";
 	}
 	
+	@GetMapping("/vault")
+	public String viewVaultPage() {
+		return "vault";
+	}
+	
 	@GetMapping("/register")
 	public String showRegistrationForm(Model model) {
 		model.addAttribute("user", new User());
@@ -40,6 +45,11 @@ public class Controller {
 		userRepo.save(user);
 		
 		return "register_success";
+	}
+	
+	@GetMapping("/login")
+	public String userLogin(Model model) {
+		return "login";
 	}
 	
 	@GetMapping("/users")
