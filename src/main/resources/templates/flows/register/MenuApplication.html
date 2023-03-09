@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>MenuApplication</title>
+</head>
+<body>
+	<br/>
+	<h2>Menu principal</h2>
+	<br/><br/>
+	<div align="center">
+		<a th:href="@{ ${flowExecutionUrl} + '&_eventId=experts'}"><h3>Les experts</h3></a>
+		<a th:href="@{ ${flowExecutionUrl} + '&_eventId=themes'}"><h3>Les thèmes</h3></a>
+		<a th:href="@{ ${flowExecutionUrl} + '&_eventId=competences'}"><h3>Les compétences</h3></a>
+		<a th:href="@{ ${flowExecutionUrl} + '&_eventId=Quitter'}"><h3>Quitter l'application</h3></a>
+	</div>
+</body>
+</html>
