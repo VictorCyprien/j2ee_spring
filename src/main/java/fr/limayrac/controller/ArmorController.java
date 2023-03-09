@@ -37,13 +37,24 @@ public class ArmorController {
 	@RequestMapping(value = "/armor/list")
 	@GetMapping(value = "/armor/list")
 	public ModelAndView listArmors() {
-		return new ModelAndView("armors_list", "armor", armorService.getArmor());
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentUserName = authentication.getName();
+		return new ModelAndView("armors_list", "armor", armorService.getArmor(currentUserName));
 	}
 	
 	@RequestMapping(value = "/armor/list/{id}", method = RequestMethod.GET)
 	public ModelAndView detailArmors(@PathVariable("id") final Integer id) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentUserName = authentication.getName();
 		Optional<Armor> armor = armorService.getArmor(id);
-		return new ModelAndView("armors_list_detail", "armor", armor.orElse(null));
+		
+		String user = armor.get().getUser();
+		
+		if (user.equals(currentUserName)){
+			return new ModelAndView("armors_list_detail", "armor", armor.orElse(null));
+		} 
+		
+		return new ModelAndView("armors_list_detail", "armor", null);
 	}
 	
 	
@@ -54,8 +65,7 @@ public class ArmorController {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentUserName = authentication.getName();
-		
-		model.addAttribute("user", currentUserName);
+		armor.setUser(currentUserName);
 		
 		armorService.saveArmor(armor);
 		return listArmors();

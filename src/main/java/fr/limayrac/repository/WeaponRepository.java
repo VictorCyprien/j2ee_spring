@@ -11,5 +11,4 @@ import fr.limayrac.model.Weapon;
 @Repository
 public interface WeaponRepository extends CrudRepository<Weapon, Integer> {
 	List<Weapon> findAllByUser(String user);
-	//Optional<Weapon> findByIdAndByUser(final Integer id, String user);
 }

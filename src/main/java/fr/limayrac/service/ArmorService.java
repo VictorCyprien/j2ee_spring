@@ -20,8 +20,8 @@ public class ArmorService{
         return ArmorRepository.findById(id);
     }
 
-    public Iterable<Armor> getArmor() {
-        return ArmorRepository.findAll();
+    public Iterable<Armor> getArmor(String user) {
+        return ArmorRepository.findAllByUser(user);
     }
 
     public void deleteArmor(final Integer id) {

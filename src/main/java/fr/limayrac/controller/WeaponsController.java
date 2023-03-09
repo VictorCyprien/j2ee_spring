@@ -50,12 +50,8 @@ public class WeaponsController {
 		Optional<Weapon> weapon = weaponService.getWeapon(id);
 		
 		String user = weapon.get().getUser();
-		
-		System.out.println(user);
-		System.out.println(currentUserName);
 				
 		if (user.equals(currentUserName)){
-			System.out.println("SAME !");
 			return new ModelAndView("weapons_list_detail", "weapon", weapon.orElse(null));
 		} 
 		
