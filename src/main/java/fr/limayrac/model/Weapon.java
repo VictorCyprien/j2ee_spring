@@ -1,10 +1,14 @@
 package fr.limayrac.model;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "weapon")
-public class Weapon {
+public class Weapon implements Serializable{
+	
+	private static final long serialVersionUID = 1;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,15 +22,6 @@ public class Weapon {
 	
 	@Column(name = "type", length = 255)
 	private String type;
-	
-	@Column(name = "damage_type", length = 255)
-	private String damage_type;
-	
-	@Column(name = "magazine", length = 255)
-	private int magazine;
-	
-	@Column(name = "attribut", length = 255)
-	private String attribute[];
 
 	@Column(name = "user", length = 255)
 	private String user;
@@ -39,73 +34,82 @@ public class Weapon {
 		this.name = name;
 		this.description = description;
 		this.type = type;
-		this.damage_type = damage_type;
-		this.magazine = magazine;
-		this.attribute = new String[2];
 		this.user = user;
 	}
 	
 	
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the name
+	 */
 	public String getName() {
-		return this.name;
+		return name;
 	}
-	
-	public String getDescription() {
-		return this.description;
-	}
-	
-	public String getType() {
-		return this.type;
-	}
-	
-	public String getDamageType() {
-		return this.damage_type;
-	}
-	
-	public int getMagazine() {
-		return this.magazine;
-	}
-	
-	public String[] getAttribut() {
-		return this.attribute;
-	}
-	
+
+	/**
+	 * @param name the name to set
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	public void setDamageType(String damage_type) {
-		this.damage_type = damage_type;
-	}
-	
-	public void setMagazine(int magazine) {
-		this.magazine = magazine;
-	}
-	
-	public void setAttribut(String attribut1, String attribut2) {
-		this.attribute[0] = attribut1;
-		this.attribute[1] = attribut2;
-	}
-	
-	@Override
-	public String toString() {
-		//return "Name : " + this.name + " | Description : " + this.description + ", | Type : " + this.type + " | Damage Type : " + this.damage_type + ", | Magazine : " + this.magazine + ", | Attributs : " + this.attribute[0] + " / " + this.attribute[1];
-		return "Name : " + this.name + " | Description : " + this.description + ", | Type : " + this.type;
+
+	/**
+	 * @return the user
+	 */
+	public String getUser() {
+		return user;
 	}
 
+	/**
+	 * @param user the user to set
+	 */
 	public void setUser(String user) {
 		this.user = user;
 	}
-	
-	public String getUser() {
-		return this.user;
+
+	@Override
+	public String toString() {
+		return "Name : " + this.name + " | Description : " + this.description + ", | Type : " + this.type;
 	}
 }

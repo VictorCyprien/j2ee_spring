@@ -19,6 +19,10 @@ public class WeaponService{
 	public Optional<Weapon> getWeapon(final Integer id) {
         return weaponRepository.findById(id);
     }
+	
+	public Iterable<Weapon> getAllWeapon() {
+        return weaponRepository.findAll();
+    }
 
     public Iterable<Weapon> getWeapon(String user) {
         return weaponRepository.findAllByUser(user);

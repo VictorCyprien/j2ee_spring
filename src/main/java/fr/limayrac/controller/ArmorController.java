@@ -39,7 +39,7 @@ public class ArmorController {
 	public ModelAndView listArmors() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentUserName = authentication.getName();
-		return new ModelAndView("armors_list", "armor", armorService.getArmor(currentUserName));
+		return new ModelAndView("/flows/vault/listArmors", "armor", armorService.getArmor(currentUserName));
 	}
 	
 	@RequestMapping(value = "/armor/list/{id}", method = RequestMethod.GET)

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="
+	  		http://www.springframework.org/schema/webflow
+          	http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+	
+	<var name="weapon" class="fr.limayrac.model.Weapon"/>
+	<var name="armor" class="fr.limayrac.model.Armor"/>
+		  
+	<!-- Main page  -->
+	<view-state id="MenuPrincipal"
+				view="flows/vault/VaultMenu"
+				redirect="false">
+		<transition on="reload" to="loadUsername" />
+		<transition on="add_weapon"
+					to="addWeapon" />
+		<transition on="add_armor"
+					to="addArmor" />
+	</view-state>
+	
+	<action-state id="loadUsername">
+	    <evaluate expression="userService.getUsername()" result="flowScope.username" />
+	    <transition to="flows/vault/VaultMenu" />
+	</action-state>
+	
+	<!-- Themes page -->
+	<view-state id="addWeapon"
+				view="flows/vault/addWeapon"
+				model="weapon">
+	</view-state>
+	
+	
+	<!-- Themes page -->
+	<view-state id="addArmor"
+				view="flows/vault/addArmor"
+				model="armor">
+	</view-state>
+
+	
+	<!--  Exit -->
+	<end-state id="Sortie" view="redirect:/logout" />
+	
+	<!-- Transitions communes -->
+	<global-transitions>
+		<!-- Menu principal -->
+		<transition on="Menu"
+					to="MenuPrincipal" />
+		
+		<!-- Sortie application -->
+		<transition to="Sortie" />
+	</global-transitions>
+
+</flow>

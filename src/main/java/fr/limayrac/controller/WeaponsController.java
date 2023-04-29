@@ -1,5 +1,6 @@
 package fr.limayrac.controller;
 
+import java.io.Console;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -40,35 +42,20 @@ public class WeaponsController {
 	public ModelAndView listWeapons() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentUserName = authentication.getName();
-		return new ModelAndView("weapons_list", "weapon", weaponService.getWeapon(currentUserName));
-	}
-	
-	@RequestMapping(value = "/weapon/list/{id}", method = RequestMethod.GET)
-	public ModelAndView detailWeapons(@PathVariable("id") final Integer id) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentUserName = authentication.getName();
-		Optional<Weapon> weapon = weaponService.getWeapon(id);
-		
-		String user = weapon.get().getUser();
-				
-		if (user.equals(currentUserName)){
-			return new ModelAndView("weapons_list_detail", "weapon", weapon.orElse(null));
-		} 
-		
-		return new ModelAndView("weapons_list_detail", "weapon", null);
-		
+		return new ModelAndView("/flows/vault/listWeapons", "weapon", weaponService.getWeapon(currentUserName));
 	}
 	
 	
 	@PostMapping("/weapon/create")
-	public ModelAndView checkWeaponInfo(@ModelAttribute("weapon") Weapon weapon, ModelMap model) {
-		model.addAttribute("name", weapon.getName());
-		model.addAttribute("description", weapon.getDescription());
-		model.addAttribute("type", weapon.getType());
+	public ModelAndView checkWeaponInfo(@RequestParam String name, @RequestParam String description, @RequestParam String type) {
+		Weapon weapon = new Weapon();
+		weapon.setName(name);
+		weapon.setDescription(description);
+		weapon.setType(type);
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentUserName = authentication.getName();
-		weapon.setUser(currentUserName);
+		weapon.setUser(currentUserName);;
 		
 		weaponService.saveWeapon(weapon);
 		return listWeapons();
@@ -79,7 +66,7 @@ public class WeaponsController {
 	@RequestMapping(value = "/weapon/create")
 	@GetMapping("/weapon/create")
 	public ModelAndView createWeapon() {
-		return new ModelAndView("weapon_create", "weapon", new Weapon());
+		return new ModelAndView("createWeapon", "weapon", new Weapon());
 	}
 	
 	

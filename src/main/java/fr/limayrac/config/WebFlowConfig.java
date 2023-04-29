@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.webflow.config.AbstractFlowConfiguration;
 import org.springframework.webflow.definition.registry.FlowDefinitionRegistry;
 import org.springframework.webflow.engine.builder.ViewFactoryCreator;
@@ -24,10 +24,12 @@ import java.util.Collections;
 
 
 @Configuration
+@EnableWebMvc
 public class WebFlowConfig extends AbstractFlowConfiguration {
 
 	@Autowired
 	private LocalValidatorFactoryBean localValidatorFactoryBean;
+
 
 	@Bean
 	public FlowDefinitionRegistry flowRegistry() {
